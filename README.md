@@ -1,7 +1,3 @@
-
-
-<!-- README.md is generated from README.qmd. Please edit that file. -->
-
 # Zane’s Website
 
 This repository contains the source code for https://wzbillings.com/.
