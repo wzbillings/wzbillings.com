@@ -1,0 +1,32 @@
+# Because renv is the most annoying thing in the world this file records
+# the dependencies we must have to build the website
+box::use(
+	base64enc,
+	bslib,
+	cachem,
+	cli,
+	commonmark,
+	evaluate,
+	fastmap,
+	fontawesome,
+	fs,
+	glue,
+	highr,
+	htmltools,
+	jquerylib,
+	jsonlite,
+	knitr,
+	lifecycle,
+	markdown,
+	memoise,
+	mime,
+	R6,
+	rappdirs,
+	rlang,
+	rmarkdown,
+	sass,
+	tinytex,
+	xfun,
+	yaml,
+	quarto
+)
