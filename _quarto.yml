@@ -27,8 +27,8 @@ website:
         href: blog.qmd
       # - text: "projects"
       #   href: projects.qmd
-      - text: "presentations"
-        href: presentations.qmd
+      # - text: "presentations"
+      #   href: presentations.qmd
       # - text: "uses"
       #   href: uses.qmd
       # - text: "now"

@@ -7,23 +7,14 @@ about:
     - icon: linkedin
       text: LinkedIn
       href: https://linkedin.com/in/wzbillings
-    - icon: mastodon
-      text: Mastodon
-      rel: "me"
-      href: https://fediscience.org/@wzbillings
     - icon: github
       text: GitHub
       href: https://github.com/wzbillings
     - icon: envelope-fill
       text: Email
-      href: mailto:wesley.billings@uga.edu
-    - icon: file-pdf-fill
-      text: "Resume"
-      href: "/static/resume.pdf"
+      href: mailto:wz.billings@gmail.com
     - text: "Google scholar"
       href: "https://scholar.google.com/citations?user=JgDUMIcAAAAJ"
-    - text: "ORCid"
-      href: "https://orcid.org/0000-0002-0184-6134"
 ---
 
 > I too am not a bit tamed, I too am untranslatable,
@@ -31,19 +22,21 @@ I sound my barbaric yawp over the roofs of the world.
 >
 > -- Walt Whitman, *Leaves of Grass*
 
-I am currently a PhD student working with [Andreas Handel](http://handelgroup.uga.edu/) at the University of Georgia (Department of Epidemiology & Biostatistics). My main skills are R programming, scientific computing, and data analysis. I like using data science and statistical methods to inform cool questions about viruses, mainly flu.
+I am a Data Scientist working at State Farm on the Enterprise Experimentation team. We focus on designing experiments across the claims data science area to improve organizational knowledge and processes.
+
+Previously, I completed my PhD under the supervision of Andreas Handel at the University of Georgia (Department of Epidemiology & Biostatistics). My main skills are R programming, study design, causal inference, and mixed-effects regression modeling. I like designing studies and leveraging statistical methods to make practical decisions, and I like communicating statistical solutions to business partners and laypeople to emphasize their value.
 
 ### Education
 
-**PhD, Epidemiology and biostatistics.** August 2020 -- Present. University of Georgia, Athens, GA, USA.
+**PhD, Epidemiology and biostatistics.** August 2020 -- August 2025. University of Georgia, Athens, GA, USA. Area of emphasis in Data Science and Modeling.
 
 **BS, Mathematics and biology.** August 2016 -- May 2020. Western Carolina University, Cullowhee, NC, USA.
 
 ### Interests
 
-* (Bayesian) hierarchical/multilevel models for epidemiological problems
-* Effects of antigenic drift on immunity and vaccination
-* Epidemiology and immunology of influenza
+* (Bayesian) hierarchical/multilevel regression models
+* Design of experiments and observational studies
+* (In a past life) How antigenic similarity between influenza strains affects epidemiology
 
 <!--
 
