@@ -1,0 +1,70 @@
+---
+title: "Lapras catching with unknown $n$ and fixed $p$"
+author: "Zane Billings"
+date: last-modified
+description: |
+  When I started trying to catch a Lapras in Pokemon Lazarus, I didn't think I
+  would need all that many attempts to find one, despite knowing that the
+  encounter rate was low. However, after noticing finding one was taking a
+  while, I took a break to estimate how many trials I had done based on a
+  proxy event that was automatically recorded for me and some numbers from the
+  game documentation.
+license: "CC BY-NC-SA"
+categories:
+  - pokemon
+  - video games
+  - probability
+# image: thumbnail.png
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    code-tools: true
+draft: true
+---
+
+```{r setup}
+library(ggplot2)
+base_pth <- here::here("posts/2026-03-16-Lapras-Adventure")
+```
+
+> People have driven Lapras almost to the point of extinction. In the evenings, this Pokémon is said to sing plaintively as it seeks what few others of its kind still remain.
+>
+> -- Lapras entry in Pokemon Ruby and Sapphire
+
+Ah, the rare and majestic Lapras. A pokemon so beloved by fans who were distraught at the news of its near extinction that later pokemon games have confirmed the conservation and repopulation of Lapras in the wild. My recent post-PhD adventures have involved quite a lot of free time that I didn't used to have, now that I'm out of academia and I have a job that respects my time and work contract. So I recently decided I wanted to play a new pokemon game, which is great because I loved [Emerald Seaglass](https://ko-fi.com/s/4a1535f351) and the final release of [Pokemon Lazarus](https://ko-fi.com/s/4baddcdbdc) by the same creator, Nemo622, was recently released to a nice amount of online hype. Something about the mildly not-quite-repetitive nature of filling out the PokeDex on my Pokemon Gym Challenge is very zen and relaxing for me, so I love playing ROM hacks and fan games with completable PokeDexes. (I don't have a Switch and I wasn't a big fan of Pokemon Sun, which was the last official title I played, so getting into fan games has been a great way to experience some awesome Pokemon content.)
+
+My dex completion for Lazarus was coming along fine for quite a while. I tend to try to catch at least every wild pokemon and gift pokemon in an area before moving on (though I can't be bothered to grind out levels for a [Prof Oak Challenge](https://www.pokecommunity.com/threads/the-professor-oaks-challenge.501577/)). Then, I unlocked Surf and started trying to catch a Lapras. I know that Lapras is tradionally rare -- I started playing Pokemon in Gen 3, got the event Lapras in Leaf Green, and knew about the Sapphire pokedex entry. So I'm familiar with this rare and majestic sea beast. But then I kept searching and searching with no Lapras in sight. So I turned to the documentation to figure out the encounter rate and noted that it was 1%, the rarest encounter rate for a wild pokemon. I felt like I had done over 100 trials already, but I hadn't actually kept count, so I thought there was no way to know.
+
+::: {#fig-pokes layout-ncol=2}
+![Lapras](lapras.png){width=200}
+
+![Shellder](shellder.png){width=200}
+
+Lapras and Shellder, shown using their sprites from Pokemon Crystal.
+:::
+
+But I've been talking about proxy metrics at work a lot recently, and this was a big focus of my dissertation research. Anyone who knows about my professional career knows I'm very concerned with the way we take measurements. Anyways, I made another choice that happened to turn out very conveniently. I love Moxie [Honchkrow](https://bulbapedia.bulbagarden.net/wiki/Honchkrow_(Pok%C3%A9mon)) and given the option I will almost always include one in my team in a Pokemon game -- this allows easy access to the move [Thief](https://bulbapedia.bulbagarden.net/wiki/Thief_(move)) which can take the held items off of wild pokemon in battles. Since [Shellder](https://bulbapedia.bulbagarden.net/wiki/Shellder_(Pok%C3%A9mon)) co-occurred in the same area where I was looking for Lapras and has a fairly high rate of dropping valuable items, I was using Thief to knock out every Shellder I came across. So after trying to find my Lapras for a while, I didn't know how many trials I had run (e.g. encounters generated in the same space), but I knew how many [Pearls](https://www.serebii.net/itemdex/pearl.shtml) and how many [Big Pearls](https://www.serebii.net/itemdex/bigpearl.shtml) were in my bag, and I knew I had zero before I started looking for Lapras in this zone. We also know the encounter rate for Lapras and Shellder, and the rate at which wild Shellder will hold Pearls and Big Pearls. Since the pokemon we encounter are disjoint, and the items Shellder can hold are disjoint, there's a fairly simple probability model here -- but instead of knowing how many trials we did and trying to estimate the rate at which something occurs, we know the rate at which everything occurs but not the number of trials we did.
+
+So, given this framework, how do we estimate the number of trials?
+
+## Estimating the number of trials
+
+## Is that a lot of trials?
+
+## Adding additional direct measurements and finally getting Lapras
+
+- 53 trials at 1% no successes
+- 18 trials at 5% before first success
+
+## Details {.appendix}
+
+* I do not own any assets related to Pokemon or Pokemon Lazarus, nor am I affiliated in any capacity with either. Any content used here, including the sprites, is reproduced under fair use and is not distributed under the licensing terms of my blog.
+* This document was last updated at `r Sys.time()`. The complete `R` session
+information is reproduced below.
+
+```{r session info}
+sessioninfo::session_info()
+```
+
+<!-- END OF FILE -->
