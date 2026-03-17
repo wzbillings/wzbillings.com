@@ -50,6 +50,63 @@ So, given this framework, how do we estimate the number of trials?
 
 ## Estimating the number of trials
 
+Alright, let's first describe a probability model for estimating the number of trials, in an abstract way. Once we've done that, we can fill in the parameters from the Pokemon Lazarus docs, write some R code, and get an estimate.
+
+Let's consider the series of encounters
+$$
+\{X_T\} = \{X_1, X_2, \ldots, X_t, \ldots, X_T\}.
+$$
+
+Here, $t = 1, \ldots, T; \quad T \in \mathbb{N}$ is a set of discrete time points and each $X_t$ is a pokemon encounter. At time $t$, we observe the variable $X_t$ whose sample space is
+
+$$
+\Omega_{X} = \{\text{all possible pokemon that can be found on the current tile}\}.
+$$
+
+For those who may not be familiar with how Pokemon works, the world is divided into a series of zones, and most zones have a few ways to encounter pokemon: each time you step into a grass tile, a cave (or other dangerous instance like a power plant) tile, or an ocean tile you have a random chance to encounter a wild pokemon. The wild pokemon you encounter is then randomly drawn from an encounter table that changes depending on the type of tile you're on, the zone you're in, and potentially other factors like the season or time of day in some games. (BTW if you aren't familiar with Pokemon, Lapras is pronounced like lap-ras not like la-prah.)
+
+By structuring our random variable of interest as a discrete time series of encounters, we can ignore the random aspect of encounters -- the actual time between encounters doesn't matter to us, only the number of encounters. In this construction, the parameter $T$, the total number of encounters, is what is unknown to us.
+
+Alright, now I'll dispense a bit with the formalism -- the proper notation for our sample space, domain of the random variable, etc. is not terribly important for what I want to talk about. All we really need to define to get this done is
+
+$$
+X_t = \begin{cases}
+1 & \text{if we encounter Lapras at encounter } t; \\
+0 & \text{otherwise}.
+\end{cases}
+$$
+
+We can then define $T = \min{t} \quad\text{s.t.}\quad X_t = 1$, i.e. we can stop generating new pokemon encounters once we find (and presumably catch, since I *am* a pokemon master, after all) a single Lapras. For now, we'll assume all of your encounters use the same encounter table, and thus that $p = \text{Pr}(X_t = 1) = 0.01 \quad\forall t$. This $0.01$ probability number is from the Pokemon Lazarus documentation.
+
+In the absence of any other information, how do we estimate the number of trials? Well, let's do a little bit of variable manipulation so we can get this into a form with a known probability distribution. We can infer that the $X_t$ are i.i.d. Bernoulli with probability $p$, because there are only two options (success or failure), each event has exactly the same probability, and what happens at event $X_t$ gives us no new information about $X_s; \quad \forall t \neq s$ (i.e. the $X_t$ are all *mutually independent*.). This might make us want to define the sum of all $X_t$ as a binomial distribution --- which would be correct, except we already know that
+$$\sum_{t=1}^T X_{t} = 1$$
+because we know that trial $T$ is the first time we see an event occur! Now we can actually start with a binomial and get where I want to go, but worrying about derivations is not what I'm trying to do here, I don't have to mathematically prove anything to anyone in this blog post and I'm not turning it in for a grade.
+
+So instead I can just say that **the distribution of the number of trials up to the first success** is the definition of a random variable that follows the [geometric distribution](https://en.wikipedia.org/wiki/Geometric_distribution). (Note the two parametrizations with different support in the first paragraph, I prefer the parametrization supported on $\mathbb{N}$.) So in this case, we can say that
+
+$$T \sim \text{Geometric}(p).$$
+
+That means we don't even really get to *estimate* $T$ here, we already know the full probability distribution of $T$ and we can directly compute the most probable values. Let's plot the distribution. Note that technically the support of $T$ is $\mathcal{S}_T = \mathbb{N}$, so technically $\text{Pr}(T = t) > 0 \quad \forall t in \mathbb{N}$, but for sufficiently large values of $t$, this probability is absurdly, monumentally small. A convenient cutoff for "real" probabilities is $\epsilon$, or "machine epsilon" -- the smallest difference between two numbers our computer can calculate. But that's a very small cutoff, so I'll just choose an arbitrary one of say $500$ encounters. Even without doing any math or looking at any plots, we can intuitively reason that if $p = 0.01$, or 1 in 100, $500$ would be a very unlikely number of encounters before seeing a single Lapras.
+
+```{r}
+p <- 0.01
+t <- seq(1, 500, 1)
+p_y <- dgeom(t, p)
+
+ggplot(mapping = aes(x = t, y = p_y)) +
+	geom_line() +
+	labs(x = "t", y = "Pr(T = t)") +
+	theme_minimal(base_size = 18)
+```
+
+Let's talk about this probability distribution a bit, because for me this is fairly unintuitive. We can see that the largest probability is at $t = 1$! But what does that mean?? In real life we would be shocked if we saw a $1\%$ Lapras as our first encounter in the zone! For me, this has to do with a mismatch between "the most likely single event" and "what we expect to happen if we repeat this process many times." The fact that $\text{Pr}(t = 1) = 0.01$ *can* be interpreted as "1 is the most probable value of $T$", which is true. But it also means something along the lines of "If we repeat the process of trying to catch a Lapras 100 times, we would expect to get Lapras in the first encounter only 1/100 times." Since there are infinitely many possibilities for how long it can take us to get Lapras (2, 3, 4, and so on), there is way more combined probability for larger numbers. We can think of the **mean** or **expected value** as the balance between these two facts. We can think of the expected value as the value we would get if we repeated our Lapras catching procedure infinitely many times (or, like, a million times or some other crazy big number) and took the average of all of the $T$ values. While it isn't *quite exactly* equivalent, this basically translates into "if we do a new run of our Lapras catching procedure and we have no other information, we should expect $T$ to be equal to its mean" --- hence why $E[T]$ or the mean is also called the expected value in statistics.
+
+To calculate the mean of the probability distribution, we have a few options. First, you can just look at the formula on the wikipedia page, we've known what the mean of the geometric distribution is for at least a few hundred years. You can also derive it yourself if you know that
+
+$$E[X] = \sum_{\mathcal{S}_X} x p(x)$$
+
+## Shellders, pearls, and proxies
+
 ## Is that a lot of trials?
 
 ## Adding additional direct measurements and finally getting Lapras
